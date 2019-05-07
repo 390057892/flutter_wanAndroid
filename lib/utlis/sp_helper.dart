@@ -1,4 +1,4 @@
-import 'package:flutter_wan_android/constants/Constants.dart';
+import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -45,7 +45,7 @@ class SpHelper{
   }
 
   static String getThemeColor() {
-    return SpUtil.getString(Constants.theme_color, defValue: 'gray');
+    return SpUtil.getString(Constants.theme_color, defValue: 'blue');
   }
 
 }

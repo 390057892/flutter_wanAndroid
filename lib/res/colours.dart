@@ -4,6 +4,7 @@ class Colours{
 
   static const Color app_color = Color(0xFF42A5F5);
   static const Color gray_33 = Color(0xFF333333); //51
+  static const Color gray_66 = Color(0xFF666666); //51
 }
 
 

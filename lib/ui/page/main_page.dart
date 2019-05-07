@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan_android/ui/page/draw_left_page.dart';
 
-class _Page{
+class _Page {
   final String labelId;
 
   _Page(this.labelId);
 }
 
-final List<_Page> _Pages=[
-
-];
-
+final List<_Page> _Pages = [];
 
 class MainPage extends StatelessWidget {
   @override
@@ -18,9 +16,10 @@ class MainPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('AppBar'),
       ),
-       body: Center(
+      body: Center(
         child: Text('hello'),
-       ),
+      ),
+      drawer: DrawerLeftPage(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_wan_android/constants/Constants.dart';
+import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/colours.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _initStreamListener() {
-    //流监听
+    //主题国际化流监听
     _loadLocal(); //todo
   }
 
