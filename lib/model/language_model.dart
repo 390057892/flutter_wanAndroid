@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+
+import '../res/localizations.dart';
 
 class LanguageModel{
   String titleId;
@@ -21,14 +24,28 @@ class LanguageModel{
     'isSelected': isSelected,
   };
 
-  @override
-  String toString() {
-    StringBuffer sb = new StringBuffer('{');
-    sb.write("\"titleId\":\"$titleId\"");
-    sb.write(",\"languageCode\":\"$languageCode\"");
-    sb.write(",\"countryCode\":\"$countryCode\"");
-    sb.write('}');
-    return sb.toString();
+  static List<LanguageModel> getList(BuildContext ctx){
+    List<LanguageModel> list = [
+      LanguageModel(
+          LocalizationsControl.of(ctx).get(Ids.autoLanguage),'',''
+      ),
+      LanguageModel(
+          '简体中文','zh','CN'
+      ),
+      LanguageModel(
+          '繁體中文','zh','TW'
+      ),
+      LanguageModel(
+          '繁體中文','zh','HK'
+      ),
+      LanguageModel(
+          'English','en','US'
+      )
+    ];
+
+    return list;
   }
+
+
 
 }

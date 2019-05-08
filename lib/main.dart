@@ -4,7 +4,7 @@ import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/colours.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
-import 'package:flutter_wan_android/ui/page/main_page.dart';
+import 'package:flutter_wan_android/views/page/main_page.dart';
 import 'package:flutter_wan_android/utlis/sp_helper.dart';
 
 void main() {
@@ -25,10 +25,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         //主题
-        primarySwatch: _themeColor,
+        accentColor: _themeColor,
         primaryColor: _themeColor,
         indicatorColor: Colors.white,
-        highlightColor: Color.fromRGBO(255, 255, 255, 0.5), //选中高亮颜色
+//        highlightColor: Color.fromRGBO(255, 255, 255, 0.5), //选中高亮颜色
       ),
 
       locale: _locale,
@@ -59,18 +59,24 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _initAsync();
+  }
 
+
+  void _initAsync() async{
+    await SpUtil.getInstance();
     _loadLocal();
   }
 
   void _initStreamListener() {
-    //主题国际化流监听
+    //流监听
     _loadLocal(); //todo
   }
 
   void _loadLocal() {
     setState(() {
-      LanguageModel model = SpHelper.getObject(Constants.language);
+      LanguageModel model = SpHelper.getObject<LanguageModel>(Constants.language);
+      print("====>model: $model");
       if (model != null) {
         _locale = new Locale(model.languageCode, model.countryCode);
       } else {
@@ -78,6 +84,7 @@ class _MyAppState extends State<MyApp> {
       }
 
       String _colorKey = SpHelper.getThemeColor();
+      print("====>color: $_colorKey");
       if (themeColorMap[_colorKey] != null)
         _themeColor = themeColorMap[_colorKey];
     });
@@ -88,3 +95,4 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 }
+

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan_android/res/localizations.dart';
-import 'package:flutter_wan_android/ui/page/setting_page.dart';
+import 'package:flutter_wan_android/res/import_class.dart';
+import 'package:flutter_wan_android/views/page/about_page.dart';
+import 'package:flutter_wan_android/views/page/collect_page.dart';
+import 'package:flutter_wan_android/views/page/setting_page.dart';
+import 'package:flutter_wan_android/views/page/share_page.dart';
+import 'package:flutter_wan_android/views/page/todo_page.dart';
 
 class DrawerLeftPage extends StatefulWidget {
   @override
@@ -16,35 +20,34 @@ class _DrawerLeftPageState extends State<DrawerLeftPage> {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text('Flutter'),
-            accountEmail: null,
+            accountEmail: Text('www.google.com'),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553619675767&di=49d3918b21879df6d8c0102087fa2139&imgtype=0&src=http%3A%2F%2Fimage.yy.com%2Fyywebalbumbs2bucket%2F23b7ba35078a4505bc2bec90940a80e0_1487720650500.jpg'),
+              backgroundImage: AssetImage(AssetsUtils.getImagePath('head')),
             ),
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://resources.ninghao.org/images/candy-shop.jpg'),
-                fit: BoxFit.cover,
-              ),
+              color: Theme.of(context).primaryColor
             ),
           ),
           ListItem(
-              title: LocalizationsControl.of(context).setting,
+              title:LocalizationsControl.of(context).get(Ids.collect),
+              iconData: Icons.collections_bookmark,
+              page: CollectPage()),
+          ListItem(
+              title: LocalizationsControl.of(context).get(Ids.todo),
+              iconData: Icons.description,
+              page: TodoPage()),
+          ListItem(
+              title: LocalizationsControl.of(context).get(Ids.setting),
               iconData: Icons.settings,
               page: SettingPage()),
           ListItem(
-              title: LocalizationsControl.of(context).about,
+              title: LocalizationsControl.of(context).get(Ids.about),
               iconData: Icons.info_outline,
-              page: SettingPage()),
+              page: AboutPage()),
           ListItem(
-              title: LocalizationsControl.of(context).share,
+              title: LocalizationsControl.of(context).get(Ids.share),
               iconData: Icons.share,
-              page: SettingPage()),
-          ListItem(
-              title: LocalizationsControl.of(context).signOut,
-              iconData: Icons.power_settings_new,
-              page: SettingPage()),
+              page: SharePage()),
         ],
       ),
     );

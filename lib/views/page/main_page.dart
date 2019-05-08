@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wan_android/ui/page/draw_left_page.dart';
+import 'package:flutter_wan_android/views/page/draw_left_page.dart';
 
 class _Page {
   final String labelId;

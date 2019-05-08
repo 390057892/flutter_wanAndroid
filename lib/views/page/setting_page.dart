@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/colours.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
+import 'package:flutter_wan_android/utlis/navigator_utils.dart';
 import 'package:flutter_wan_android/utlis/sp_helper.dart';
+import 'package:flutter_wan_android/views/page/language_page.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -21,7 +24,7 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocalizationsControl.of(context).setting),
+        title: Text(LocalizationsControl.of(context).get(Ids.setting)),
         centerTitle: true,
       ),
       body: ListView(
@@ -32,7 +35,7 @@ class _SettingPageState extends State<SettingPage> {
                 Icon(Icons.color_lens, color: Colours.gray_66),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(LocalizationsControl.of(context).theme),
+                  child: Text(LocalizationsControl.of(context).get(Ids.theme)),
                 ),
               ],
             ),
@@ -42,8 +45,8 @@ class _SettingPageState extends State<SettingPage> {
                   Color value = themeColorMap[key];
                   return InkWell(
                     onTap: () {
-//                      SpUtil.putString(Constant.key_theme_color, key);
-//                      bloc.sendAppEvent(Constant.type_sys_update);
+                      SpUtil.putString(Constants.theme_color, key);
+//                      bloc.sendAppEvent(Constants.sys_update);
                     },
                     child: Container(
                       margin: EdgeInsets.all(5.0),
@@ -65,7 +68,7 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(LocalizationsControl.of(context).language),
+                  child: Text(LocalizationsControl.of(context).get(Ids.language)),
                 ),
 
               ],
@@ -77,6 +80,10 @@ class _SettingPageState extends State<SettingPage> {
                  Icon(Icons.keyboard_arrow_right)
                ],
             ),
+            onTap: (){
+              NavigatorUtils.pushAndroidPage(context, LanguagePage());
+
+            },
           )
         ],
       ),
