@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan_android/blocs/app_bloc.dart';
+import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/colours.dart';
@@ -22,6 +24,7 @@ class _SettingPageState extends State<SettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AppBloc bloc = BlocProvider.of<AppBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(LocalizationsControl.of(context).get(Ids.setting)),
@@ -46,7 +49,7 @@ class _SettingPageState extends State<SettingPage> {
                   return InkWell(
                     onTap: () {
                       SpUtil.putString(Constants.theme_color, key);
-//                      bloc.sendAppEvent(Constants.sys_update);
+                      bloc.updateApp(Constants.update_app);
                     },
                     child: Container(
                       margin: EdgeInsets.all(5.0),
@@ -76,13 +79,12 @@ class _SettingPageState extends State<SettingPage> {
             trailing: new Row(
               mainAxisSize: MainAxisSize.min,
                children: <Widget>[
-                 Text('aa'),
+                 Text(LocalizationsControl.of(context).get(Ids.currentLanguage)),
                  Icon(Icons.keyboard_arrow_right)
                ],
             ),
             onTap: (){
               NavigatorUtils.pushAndroidPage(context, LanguagePage());
-
             },
           )
         ],

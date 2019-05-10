@@ -15,6 +15,12 @@ class Ids {
   static const String search = 'search';
   static const String autoLanguage = 'autoLanguage';
 
+
+  static const String home = 'home';
+  static const String project = 'project';
+  static const String nav = 'nav';
+  static const String system = 'system';
+
 }
 
 class LocalizationsControl {
@@ -38,8 +44,12 @@ class LocalizationsControl {
         Ids.sure:'Sure',
         Ids.theme:'Theme',
         Ids.language:'Language',
-        Ids.currentLanguage:'Language',
+        Ids.currentLanguage:'English',
         Ids.autoLanguage:'Auto',
+        Ids.home:'Home',
+        Ids.project:'Project',
+        Ids.nav:'Navigation',
+        Ids.system:'System',
       }
     },
     'zh': {
@@ -52,8 +62,12 @@ class LocalizationsControl {
         Ids.sure: '确定',
         Ids.theme: '主题',
         Ids.language: '语言',
-        Ids.currentLanguage: '语言',
+        Ids.currentLanguage: '简体中文',
         Ids.autoLanguage: '跟随系统',
+        Ids.home: '首页',
+        Ids.project: '项目',
+        Ids.nav: '导航',
+        Ids.system: '体系',
       },
       'HK': {
         Ids.collect: '收藏',
@@ -64,8 +78,12 @@ class LocalizationsControl {
         Ids.sure: '確定',
         Ids.theme: '主題',
         Ids.language: '語言',
-        Ids.currentLanguage: '語言',
+        Ids.currentLanguage: '繁體中文(HK)',
         Ids.autoLanguage: '跟隨系統',
+        Ids.home: '首頁',
+        Ids.project: '項目',
+        Ids.nav: '導航',
+        Ids.system: '體系',
       },
       'TW': {
         Ids.collect: '收藏',
@@ -76,8 +94,12 @@ class LocalizationsControl {
         Ids.sure: '確定',
         Ids.theme: '主題',
         Ids.language: '語言',
-        Ids.currentLanguage: '語言',
+        Ids.currentLanguage: '繁體中文(TW)',
         Ids.autoLanguage: '跟隨系統',
+        Ids.home: '首頁',
+        Ids.project: '項目',
+        Ids.nav: '導航',
+        Ids.system: '體系',
       }
     },
   };

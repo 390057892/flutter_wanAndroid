@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan_android/blocs/app_bloc.dart';
+import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
@@ -32,6 +34,7 @@ class _LanguagePageState extends State<LanguagePage> {
 
   @override
   Widget build(BuildContext context) {
+    AppBloc bloc=BlocProvider.of<AppBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(LocalizationsControl.of(context).get(Ids.language)),
@@ -46,7 +49,7 @@ class _LanguagePageState extends State<LanguagePage> {
                   child: Text(LocalizationsControl.of(context).get(Ids.sure)),
                   onPressed: () {
                     SpHelper.putObject(Constants.language, _currentLanguage);
-                    //todo  send event
+                    bloc.updateApp(Constants.update_app);
                     Navigator.of(context).pop();
                   }),
             ),

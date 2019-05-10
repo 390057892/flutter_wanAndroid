@@ -45,7 +45,7 @@ class SpHelper{
   }
 
   static String getThemeColor() {
-    return SpUtil.getString(Constants.theme_color, defValue: 'gray');
+    return SpUtil.getString(Constants.theme_color, defValue: 'blue');
   }
 
 }

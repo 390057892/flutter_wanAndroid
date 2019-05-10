@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_wan_android/blocs/app_bloc.dart';
+import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/language_model.dart';
 import 'package:flutter_wan_android/res/colours.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
-import 'package:flutter_wan_android/views/page/main_page.dart';
 import 'package:flutter_wan_android/utlis/sp_helper.dart';
+import 'package:flutter_wan_android/views/page/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(BlocProvider<AppBloc>(
+    child: MyApp(),
+    bloc: AppBloc(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -28,7 +33,6 @@ class _MyAppState extends State<MyApp> {
         accentColor: _themeColor,
         primaryColor: _themeColor,
         indicatorColor: Colors.white,
-//        highlightColor: Color.fromRGBO(255, 255, 255, 0.5), //选中高亮颜色
       ),
 
       locale: _locale,
@@ -60,22 +64,26 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _initAsync();
+    _initStreamListener();
   }
 
-
-  void _initAsync() async{
+  void _initAsync() async {
     await SpUtil.getInstance();
     _loadLocal();
   }
 
   void _initStreamListener() {
     //流监听
-    _loadLocal(); //todo
+    final AppBloc bloc = BlocProvider.of<AppBloc>(context);
+    bloc.textFieldSubject.listen((value) {
+      _loadLocal();
+    });
   }
 
   void _loadLocal() {
     setState(() {
-      LanguageModel model = SpHelper.getObject<LanguageModel>(Constants.language);
+      LanguageModel model =
+          SpHelper.getObject<LanguageModel>(Constants.language);
       print("====>model: $model");
       if (model != null) {
         _locale = new Locale(model.languageCode, model.countryCode);
@@ -95,4 +103,3 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 }
-
