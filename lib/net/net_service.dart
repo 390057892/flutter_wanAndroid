@@ -5,8 +5,11 @@ import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/dio_driver.dart';
 
 class NetService {
+
+
+
   Future<List<BannerResp>> getBanner() async {
-    BaseResp<List> baseResp = await DioDriver().postData<List>(
+    BaseResp<List> baseResp = await DioDriver().getData<List>(
          WanAndroidApi.BANNER);
     List<BannerResp> bannerList;
     if (baseResp.errorCode != HttpCode.http_success) {
@@ -19,4 +22,11 @@ class NetService {
     }
     return bannerList;
   }
+
+//  NetService(){
+//    Options options = DioUtil.getDefOptions();
+//    options.baseUrl = Constant.server_address;
+//    HttpConfig config = new HttpConfig(options: options);
+//    DioUtil().setConfig(config);
+//  }
 }

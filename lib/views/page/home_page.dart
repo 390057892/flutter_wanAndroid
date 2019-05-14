@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_wan_android/blocs/app_bloc.dart';
 import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/utlis/assets_utlis.dart';
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
-    bloc.getBanner(labelId);
+    bloc.getData(labelId: labelId);
     return ListView(
       children: <Widget>[
         SwipeDiy(),

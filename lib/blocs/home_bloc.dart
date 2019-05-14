@@ -9,8 +9,9 @@ import 'package:rxdart/rxdart.dart';
 class HomeBloc extends BaseBloc{
   PublishSubject<List<BannerResp>> _homeSubject = PublishSubject<List<BannerResp>>();
 
-  PublishSubject<List<BannerResp>> get textFieldSubject => _homeSubject;
+  PublishSubject<List<BannerResp>> get homeSubject => _homeSubject;
 
+  NetService wanRepository = new NetService();
 
   @override
   void dispose() {
@@ -36,7 +37,7 @@ class HomeBloc extends BaseBloc{
 
 
   Future getBanner(String labelId) {
-    return NetService.getBanner().then((list) {
+    return wanRepository.getBanner().then((list) {
       _homeSubject.add(UnmodifiableListView<BannerResp>(list));
     });
   }
