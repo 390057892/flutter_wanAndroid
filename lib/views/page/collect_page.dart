@@ -6,10 +6,9 @@ class CollectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocalizationsControl.of(context).get(Ids.collect)),
-      ),
-      body: Progress()
-    );
+        appBar: AppBar(
+          title: Text(LocalizationsControl.of(context).get(Ids.collect)),
+        ),
+        body: Progress());
   }
 }

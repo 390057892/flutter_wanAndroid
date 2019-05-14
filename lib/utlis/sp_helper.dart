@@ -5,8 +5,7 @@ import 'dart:async';
 import 'package:synchronized/synchronized.dart';
 import 'dart:convert';
 
-class SpHelper{
-
+class SpHelper {
   static void putObject<T>(String key, Object value) {
     switch (T) {
       case int:
@@ -47,26 +46,24 @@ class SpHelper{
   static String getThemeColor() {
     return SpUtil.getString(Constants.theme_color, defValue: 'blue');
   }
-
 }
 
-
-class SpUtil{
+class SpUtil {
   static SpUtil _singleton;
 
   static SharedPreferences _prefs;
 
   static Lock _lock = Lock();
 
-  static Future<SpUtil> getInstance() async{
-    if(_singleton==null){
-       await _lock.synchronized(() async{
-         if (_singleton == null) {
-           var singleton = SpUtil._();
-           await singleton._init();
-           _singleton = singleton;
-         }
-       });
+  static Future<SpUtil> getInstance() async {
+    if (_singleton == null) {
+      await _lock.synchronized(() async {
+        if (_singleton == null) {
+          var singleton = SpUtil._();
+          await singleton._init();
+          _singleton = singleton;
+        }
+      });
     }
     return _singleton;
   }

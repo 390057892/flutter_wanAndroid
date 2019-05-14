@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Colours{
-
+class Colours {
   static const Color app_color = Colors.blue;
   static const Color gray_66 = Color(0xFF666666);
 }
 
-
 Map<String, Color> themeColorMap = {
-
   'blue': Colors.blue,
   'blueAccent': Colors.blueAccent,
   'indigoAccent': Colors.indigoAccent,

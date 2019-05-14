@@ -4,7 +4,10 @@ import 'package:flutter_wan_android/utlis/assets_utlis.dart';
 import 'package:flutter_wan_android/utlis/navigator_utils.dart';
 import 'package:flutter_wan_android/views/page/draw_left_page.dart';
 import 'package:flutter_wan_android/views/page/home_page.dart';
+import 'package:flutter_wan_android/views/page/nav_page.dart';
+import 'package:flutter_wan_android/views/page/project_page.dart';
 import 'package:flutter_wan_android/views/page/search_page.dart';
+import 'package:flutter_wan_android/views/page/system_page.dart';
 
 class Page {
   final String labelId;
@@ -26,18 +29,7 @@ class MainPage extends StatelessWidget {
       length: _pages.length,
       child: Scaffold(
         appBar: AppBar(
-          leading: GestureDetector(
-            child: Container(
-              margin: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(AssetsUtils.getImagePath('head')),
-                ),
-              ),
-            ),
-            onTap: () => Scaffold.of(context).openDrawer(),
-          ),
+          leading: HeadLayout(),
           centerTitle: true,
           title: TabLayout(),
           actions: <Widget>[
@@ -52,6 +44,24 @@ class MainPage extends StatelessWidget {
         body: MainLayout(),
         drawer: DrawerLeftPage(),
       ),
+    );
+  }
+}
+
+class HeadLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(AssetsUtils.getImagePath('head')),
+          ),
+        ),
+      ),
+      onTap: () => Scaffold.of(context).openDrawer(),
     );
   }
 }
@@ -76,16 +86,16 @@ class MainLayout extends StatelessWidget {
     String labelId = page.labelId;
     switch (labelId) {
       case Ids.home:
-        return HomePage();
+        return HomePage(labelId: labelId,);
         break;
       case Ids.project:
-        return HomePage();
+        return ProjectPage();
         break;
       case Ids.nav:
-        return HomePage();
+        return NavPage();
         break;
       case Ids.system:
-        return HomePage();
+        return SystemPage();
         break;
       default:
         return Container();

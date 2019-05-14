@@ -6,7 +6,6 @@ import 'package:rxdart/rxdart.dart';
 class AppBloc extends BaseBloc {
   PublishSubject<int> _textFieldSubject = PublishSubject<int>();
 
-
   PublishSubject<int> get textFieldSubject => _textFieldSubject;
 
   void updateApp(int data) {

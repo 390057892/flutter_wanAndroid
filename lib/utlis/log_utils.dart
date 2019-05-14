@@ -1,6 +1,1 @@
-
-
-class LogUtils{
-
-
-}
+class LogUtils {}

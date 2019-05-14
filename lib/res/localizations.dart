@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart' show SynchronousFuture;
 import 'package:flutter/material.dart';
 
-
 class Ids {
   static const String collect = 'collect';
   static const String todo = 'todo';
@@ -15,12 +14,10 @@ class Ids {
   static const String search = 'search';
   static const String autoLanguage = 'autoLanguage';
 
-
   static const String home = 'home';
   static const String project = 'project';
   static const String nav = 'nav';
   static const String system = 'system';
-
 }
 
 class LocalizationsControl {
@@ -39,17 +36,17 @@ class LocalizationsControl {
         Ids.collect: 'Collect',
         Ids.todo: 'Todo',
         Ids.setting: 'Setting',
-        Ids.about:'About',
-        Ids.share:'Share',
-        Ids.sure:'Sure',
-        Ids.theme:'Theme',
-        Ids.language:'Language',
-        Ids.currentLanguage:'English',
-        Ids.autoLanguage:'Auto',
-        Ids.home:'Home',
-        Ids.project:'Project',
-        Ids.nav:'Navigation',
-        Ids.system:'System',
+        Ids.about: 'About',
+        Ids.share: 'Share',
+        Ids.sure: 'Sure',
+        Ids.theme: 'Theme',
+        Ids.language: 'Language',
+        Ids.currentLanguage: 'English',
+        Ids.autoLanguage: 'Auto',
+        Ids.home: 'Home',
+        Ids.project: 'Project',
+        Ids.nav: 'Navigation',
+        Ids.system: 'System',
       }
     },
     'zh': {
@@ -107,8 +104,6 @@ class LocalizationsControl {
   String get(String id) {
     return _localized[locale.languageCode][locale.countryCode][id];
   }
-
-
 }
 
 class LocalizationsDelegates
@@ -131,5 +126,3 @@ class LocalizationsDelegates
     return false;
   }
 }
-
-

@@ -18,7 +18,7 @@ class _SettingPageState extends State<SettingPage> {
   LanguageModel languageModel;
   @override
   void initState() {
-    languageModel=SpHelper.getObject('key');
+    languageModel = SpHelper.getObject('key');
     super.initState();
   }
 
@@ -71,19 +71,19 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(LocalizationsControl.of(context).get(Ids.language)),
+                  child:
+                      Text(LocalizationsControl.of(context).get(Ids.language)),
                 ),
-
               ],
             ),
             trailing: new Row(
               mainAxisSize: MainAxisSize.min,
-               children: <Widget>[
-                 Text(LocalizationsControl.of(context).get(Ids.currentLanguage)),
-                 Icon(Icons.keyboard_arrow_right)
-               ],
+              children: <Widget>[
+                Text(LocalizationsControl.of(context).get(Ids.currentLanguage)),
+                Icon(Icons.keyboard_arrow_right)
+              ],
             ),
-            onTap: (){
+            onTap: () {
               NavigatorUtils.pushAndroidPage(context, LanguagePage());
             },
           )

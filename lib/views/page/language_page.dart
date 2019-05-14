@@ -26,15 +26,15 @@ class _LanguagePageState extends State<LanguagePage> {
     _list = LanguageModel.getList(context);
     print('====>LanguageModel ${_list.length}');
     _currentLanguage = SpHelper.getObject<LanguageModel>(Constants.language);
-    if(_currentLanguage==null){
-      _currentLanguage=_list[0];
+    if (_currentLanguage == null) {
+      _currentLanguage = _list[0];
     }
     _updateData();
   }
 
   @override
   Widget build(BuildContext context) {
-    AppBloc bloc=BlocProvider.of<AppBloc>(context);
+    AppBloc bloc = BlocProvider.of<AppBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(LocalizationsControl.of(context).get(Ids.language)),
@@ -61,19 +61,22 @@ class _LanguagePageState extends State<LanguagePage> {
         itemBuilder: (BuildContext context, int index) {
           LanguageModel model = _list[index];
           return ListTile(
-            title: Text(model.titleId,style: TextStyle(fontSize: 12.0),),
+            title: Text(
+              model.titleId,
+              style: TextStyle(fontSize: 12.0),
+            ),
             trailing: Radio(
                 value: true,
                 groupValue: model.isSelected == true,
                 onChanged: (value) {
                   setState(() {
-                    _currentLanguage=model;
+                    _currentLanguage = model;
                     _updateData();
                   });
                 }),
-            onTap: (){
+            onTap: () {
               setState(() {
-                _currentLanguage=model;
+                _currentLanguage = model;
                 _updateData();
               });
             },

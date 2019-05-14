@@ -24,12 +24,10 @@ class _DrawerLeftPageState extends State<DrawerLeftPage> {
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(AssetsUtils.getImagePath('head')),
             ),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor
-            ),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
           ),
           ListItem(
-              title:LocalizationsControl.of(context).get(Ids.collect),
+              title: LocalizationsControl.of(context).get(Ids.collect),
               iconData: Icons.collections_bookmark,
               page: CollectPage()),
           ListItem(
