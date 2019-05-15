@@ -14,7 +14,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
+    bloc.getData(labelId: labelId);
     bloc.homeSubject.listen((event) {
+      print('$event');
 //      if (labelId == event.labelId) {
 //        _controller.sendBack(false, event.status);
 //      }
