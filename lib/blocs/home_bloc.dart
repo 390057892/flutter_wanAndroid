@@ -29,8 +29,8 @@ class HomeBloc extends BaseBloc {
 
   @override
   Future getData({String labelId, int page}) {
-    getArticleList(page);
-    return getBanner(labelId);
+    return getArticleList(page);
+//    return getBanner(labelId);
   }
 
   @override
@@ -40,7 +40,7 @@ class HomeBloc extends BaseBloc {
 
   @override
   Future onRefresh({String labelId}) {
-    return getData();
+    return getData(page: 0);
   }
 
   Future getBanner(String labelId) {
@@ -50,7 +50,7 @@ class HomeBloc extends BaseBloc {
   }
 
   Future getArticleList(int page){
-    return wanRepository.getArticleList().then((list){
+    return wanRepository.getArticleList(page: page).then((list){
       _articleSubject.add(list);
     });
   }

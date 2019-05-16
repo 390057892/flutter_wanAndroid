@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     final HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
     Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
-      bloc.getData();
+      bloc.onRefresh();
     });
 
     return EasyRefresh(

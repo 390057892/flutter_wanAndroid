@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/protocol/base_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/http_config.dart';
@@ -50,20 +51,23 @@ class DioDriver {
 
   Future<BaseResp<T>> getData<T>(String path, {data, Options options}) async {
     Response response;
-    response = await _dio.get(path, queryParameters: data);
-    if (response.statusCode == HttpStatus.ok) {
-      try {
-        return BaseResp(response.data[_status], response.data[_codeCode],
-            response.data[_errorMsg], response.data[_dataKey]);
-      } catch (e) {
-        return new Future.error(new DioError(
-          response: response,
-          message: "data parsing exception...",
-          type: DioErrorType.RESPONSE,
-        ));
+    try {
+      response = await _dio.get(path, queryParameters: data);
+      if (response.statusCode == HttpStatus.ok) {
+        if (response.data[_codeCode] != HttpCode.http_success) {
+        } else {
+          return BaseResp(response.data[_status], response.data[_codeCode],
+              response.data[_errorMsg], response.data[_dataKey]);
+        }
       }
+    } catch (e) {
+      return Future.error(DioError(
+        response: response,
+        message: "data parsing exception...",
+        type: DioErrorType.RESPONSE,
+      ));
     }
-    return new Future.error(new DioError(
+    return Future.error(DioError(
       response: response,
       message: "statusCode: $response.statusCode, service error",
       type: DioErrorType.RESPONSE,
@@ -78,17 +82,19 @@ class DioDriver {
         return BaseResp(response.data[_status], response.data[_codeCode],
             response.data[_errorMsg], response.data[_dataKey]);
       } catch (e) {
-        return new Future.error(new DioError(
+        return Future.error(DioError(
           response: response,
           message: "data parsing exception...",
           type: DioErrorType.RESPONSE,
         ));
       }
     }
-    return new Future.error(new DioError(
+    return Future.error(DioError(
       response: response,
       message: "statusCode: $response.statusCode, service error",
       type: DioErrorType.RESPONSE,
     ));
   }
+
+
 }

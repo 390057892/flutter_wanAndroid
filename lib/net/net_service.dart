@@ -6,11 +6,10 @@ import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/dio_driver.dart';
 
 class NetService {
-
   factory NetService() => _getInstance();
   static NetService _instance;
 
-  static NetService _getInstance(){
+  static NetService _getInstance() {
     if (_instance == null) {
       _instance = new NetService._init();
     }
@@ -20,8 +19,8 @@ class NetService {
   NetService._init();
 
   Future<List<BannerResp>> getBanner() async {
-    BaseResp<List> baseResp = await DioDriver().getData<List>(
-         WanAndroidApi.BANNER);
+    BaseResp<List> baseResp =
+        await DioDriver().getData<List>(WanAndroidApi.BANNER);
     List<BannerResp> bannerList;
     if (baseResp.errorCode != HttpCode.http_success) {
       return new Future.error(baseResp.errorMsg);
@@ -34,11 +33,16 @@ class NetService {
     return bannerList;
   }
 
-
-  Future<List<ArticleResp>> getArticleList() async{
+  Future<List<ArticleResp>> getArticleList({int page, data}) async {
+    BaseResp<Map<String, dynamic>> baseResp = await DioDriver()
+        .getData<Map<String, dynamic>>(
+            WanAndroidApi.getPath(path: WanAndroidApi.articleList, page: page));
     List<ArticleResp> articleList;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return new Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {}
 
     return articleList;
   }
-
 }
