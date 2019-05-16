@@ -88,7 +88,7 @@ class MainLayout extends StatelessWidget {
     String labelId = page.labelId;
     switch (labelId) {
       case Ids.home:
-        return BlocProvider(child: HomePage(labelId: labelId,),bloc: HomeBloc(),);
+        return BlocProvider(child: HomePage(labelId: labelId),bloc: HomeBloc());
         break;
       case Ids.project:
         return ProjectPage();

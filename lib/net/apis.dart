@@ -1,6 +1,14 @@
 class WanAndroidApi {
+  ///获取banner
   ///https://www.wanandroid.com/banner/json
-  static const String BANNER = "banner/json"; //获取banner
+  static const String BANNER = "banner/json";
+
+  /// 首页文章列表 http://www.wanandroid.com/article/list/0/json
+  static const String articleList = "article/list";
+
+  /// 项目列表数据
+  /// http://www.wanandroid.com/project/list/1/json?cid=294
+  static const String projectList = "project/list";
 
   ///获取公众号列表
   static const String wxArticleList = "wxarticle/chapters/json";
