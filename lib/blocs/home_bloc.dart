@@ -23,14 +23,14 @@ class HomeBloc extends BaseBloc {
 
   @override
   void dispose() {
-    _bannerSubject.close();
-    _articleSubject.close();
+//    _bannerSubject.close();
+//    _articleSubject.close();
   }
 
   @override
   Future getData({String labelId, int page}) {
-    return getArticleList(page);
-//    return getBanner(labelId);
+    getArticleList(page);
+    return getBanner(labelId);
   }
 
   @override
