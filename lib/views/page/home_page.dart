@@ -7,8 +7,11 @@ import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/model/protocol/article_resp.dart';
 import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
 import 'package:flutter_wan_android/utlis/object_util.dart';
+import 'package:flutter_wan_android/views/widgets/article_item.dart';
 import 'package:flutter_wan_android/views/widgets/progress.dart';
 import 'package:rxdart/rxdart.dart';
+
+bool isFirstInit = true;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key, this.labelId}) : super(key: key);
@@ -27,9 +30,12 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     final HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
-    Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
-      bloc.onRefresh();
-    });
+    if(isFirstInit) {
+      Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
+        bloc.onRefresh();
+      });
+      isFirstInit=false;
+    }
 
     return EasyRefresh(
       child: ListView(
@@ -104,7 +110,17 @@ class HomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    if (ObjectUtil.isEmptyList(articleList)) {
+      return Container(height: 0.0);
+    }
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: articleList.length,
+      itemBuilder:(context,index){
+        return ArticleItem(articleList[index]);
+      },
+    );
   }
 }
 

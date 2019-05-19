@@ -2,6 +2,8 @@ import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/protocol/article_resp.dart';
 import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
 import 'package:flutter_wan_android/model/protocol/base_resp.dart';
+import 'package:flutter_wan_android/model/protocol/com_data.dart';
+import 'package:flutter_wan_android/model/protocol/project_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/dio_driver.dart';
 
@@ -39,10 +41,32 @@ class NetService {
             WanAndroidApi.getPath(path: WanAndroidApi.articleList, page: page));
     List<ArticleResp> articleList;
     if (baseResp.errorCode != HttpCode.http_success) {
-      return new Future.error(baseResp.errorMsg);
+      return  Future.error(baseResp.errorMsg);
     }
-    if (baseResp.data != null) {}
-
+    if (baseResp.data != null) {
+      ComData comData = ComData.fromJson(baseResp.data);
+      articleList=comData.datas.map((value){
+        return ArticleResp.fromJson(value);
+      }).toList();
+    }
     return articleList;
   }
+
+  Future<List<ProjectResp>> getProjectList({int page, data}) async {
+    BaseResp<Map<String, dynamic>> baseResp = await DioDriver()
+        .getData<Map<String, dynamic>>(
+        WanAndroidApi.getPath(path: WanAndroidApi.projectList, page: page));
+    List<ProjectResp> projectList;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return  Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {
+      ComData comData = ComData.fromJson(baseResp.data);
+      projectList=comData.datas.map((value){
+        return ProjectResp.fromJson(value);
+      }).toList();
+    }
+    return projectList;
+  }
+
 }
