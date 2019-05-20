@@ -19,10 +19,11 @@ class _ProjectPageState extends State<ProjectPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final ProjectBloc bloc = BlocProvider.of<ProjectBloc>(context);
     if(isFirstInit) {
-      bloc.onRefresh();
       isFirstInit=false;
+      bloc.onRefresh();
     }
     return StreamBuilder(
         stream: bloc.repos,

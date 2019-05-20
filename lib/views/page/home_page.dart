@@ -29,46 +29,70 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final HomeBloc bloc = BlocProvider.of<HomeBloc>(context);
-    if(isFirstInit) {
+    if (isFirstInit) {
+      isFirstInit = false;
       Observable.just(1).delay(new Duration(milliseconds: 500)).listen((_) {
         bloc.onRefresh();
       });
-      isFirstInit=false;
     }
-
-    return EasyRefresh(
-      child: ListView(
-        children: <Widget>[
-          StreamBuilder(
-            stream: bloc.bannerSubject.stream,
-            builder: (context, snapshot) {
-              return SwipeDiy(snapshot.data);
-            },
+    return StreamBuilder(
+      stream: bloc.bannerSubject.stream,
+      builder: (context, snapshot) {
+        return EasyRefresh(
+          child: ListView(
+            children: <Widget>[
+              buildBanner(context, snapshot.data),
+              StreamBuilder(
+                stream: bloc.articleSubject.stream,
+                builder: (context, snapshot) {
+                  return HomeList(snapshot.data);
+                },
+              ),
+            ],
           ),
-          StreamBuilder(
-            stream: bloc.articleSubject.stream,
-            builder: (context, snapshot) {
-              return HomeList(snapshot.data);
-            },
+          refreshHeader: ClassicsHeader(
+            key: _headerKey,
+            bgColor: Colors.transparent,
+            textColor: Colors.black87,
+            moreInfoColor: Colors.black54,
+            showMore: true,
           ),
-        ],
-      ),
-      refreshHeader: ClassicsHeader(
-        key: _headerKey,
-        bgColor: Colors.transparent,
-        textColor: Colors.black87,
-        moreInfoColor: Colors.black54,
-        showMore: true,
-      ),
-      onRefresh: () async {
-        bloc.onRefresh();
+          onRefresh: () async {
+            bloc.onRefresh();
+          },
+        );
       },
     );
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  Widget buildBanner(BuildContext context, List<BannerResp> swipeDataList) {
+    if (ObjectUtil.isEmptyList(swipeDataList)) {
+      return new Container(height: 0.0);
+    }
+    return Container(
+      child: AspectRatio(
+        aspectRatio: 16.0 / 9.0,
+        child: Swiper(
+          itemBuilder: (BuildContext context, int index) {
+            return CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: swipeDataList[index].imagePath,
+              placeholder: (context, url) => Progress(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            );
+          },
+          itemCount: swipeDataList.length,
+          pagination: SwiperPagination(),
+          autoplay: true,
+        ),
+      ),
+    );
+  }
 }
 
 // 首页轮播组件编写
@@ -117,10 +141,9 @@ class HomeList extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: articleList.length,
-      itemBuilder:(context,index){
+      itemBuilder: (context, index) {
         return ArticleItem(articleList[index]);
       },
     );
   }
 }
-

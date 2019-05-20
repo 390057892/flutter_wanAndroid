@@ -13,7 +13,7 @@
 *.iml
 *.ipr
 *.iws
-# .idea/
+.idea/
 
 # Visual Studio Code related
 .vscode/
