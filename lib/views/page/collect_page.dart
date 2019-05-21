@@ -9,6 +9,6 @@ class CollectPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(LocalizationsControl.of(context).get(Ids.collect)),
         ),
-        body: Progress());
+        body: ProgressView());
   }
 }

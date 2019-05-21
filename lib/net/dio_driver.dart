@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_wan_android/constants/constants.dart';
 import 'package:flutter_wan_android/model/protocol/base_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
-import 'package:flutter_wan_android/net/http_config.dart';
 
 class DioDriver {
   factory DioDriver() => _getInstance();

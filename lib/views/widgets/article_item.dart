@@ -16,7 +16,8 @@ class ArticleItem extends StatelessWidget {
       splashColor: Colors.white.withOpacity(0.3),
       highlightColor: Colors.white.withOpacity(0.1),
       onTap: () {
-//        NavigatorUtils.pushAndroidPage(context, page)
+          NavigatorUtils.pushWebPage(context,
+              title: articleResp.title, url: articleResp.link);
       },
       child: Container(
         height: 150.0,
@@ -65,7 +66,7 @@ class ArticleItem extends StatelessWidget {
                   height: 128,
                   fit: BoxFit.cover,
                   imageUrl: articleResp.envelopePic,
-                  placeholder: (context, url) => Progress(),
+                  placeholder: (context, url) => ProgressView(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               )
