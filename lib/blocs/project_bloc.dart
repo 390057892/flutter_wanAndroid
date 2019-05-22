@@ -1,23 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/model/protocol/project_resp.dart';
 import 'package:flutter_wan_android/net/net_service.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ProjectBloc extends BaseBloc{
-
+class ProjectBloc extends BaseBloc {
   PublishSubject<List<ProjectResp>> _repos =
-  PublishSubject<List<ProjectResp>>();
-
+      PublishSubject<List<ProjectResp>>();
 
   PublishSubject<List<ProjectResp>> get repos => _repos;
   NetService wanRepository = NetService();
 
-  int _page=0;
-
+  int _page = 0;
+  List<ProjectResp> _proList;
   @override
-  void dispose() {
-  }
+  void dispose() {}
 
   @override
   Future getData({String labelId, int page}) {
@@ -26,20 +22,28 @@ class ProjectBloc extends BaseBloc{
 
   @override
   Future onLoadMore({String labelId}) {
-    _page++;
+    ++_page;
     return getProjectList(_page);
   }
 
   @override
   Future onRefresh({String labelId}) {
-    _page=1;
+    _page = 0;
     return getProjectList(_page);
   }
 
-  Future getProjectList(int page){
-    return wanRepository.getProjectList(page: page).then((list){
-      _repos.add(list);
+
+  Future getProjectList(int page) {
+    print("getProjectList-->$page");
+    return wanRepository.getProjectList(page: page).then((list) {
+      if(_proList==null){
+        _proList=new List();
+      }
+      if(page==0){
+        _proList.clear();
+      }
+      _proList.addAll(list);
+      _repos.add(_proList);
     });
   }
-
 }

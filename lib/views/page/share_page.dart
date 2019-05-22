@@ -9,7 +9,7 @@ class SharePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(LocalizationsControl.of(context).get(Ids.share)),
       ),
-      body: Progress(),
+      body: ProgressView(),
     );
   }
 }

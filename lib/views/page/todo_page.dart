@@ -14,7 +14,7 @@ class _TodoPageState extends State<TodoPage> {
       appBar: AppBar(
         title: Text(LocalizationsControl.of(context).get(Ids.todo)),
       ),
-      body: Progress(),
+      body: ProgressView(),
     );
   }
 }

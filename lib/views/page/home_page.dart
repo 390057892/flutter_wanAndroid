@@ -6,6 +6,7 @@ import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/model/protocol/article_resp.dart';
 import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
+import 'package:flutter_wan_android/utlis/navigator_utils.dart';
 import 'package:flutter_wan_android/utlis/object_util.dart';
 import 'package:flutter_wan_android/views/widgets/article_item.dart';
 import 'package:flutter_wan_android/views/widgets/progress.dart';
@@ -79,11 +80,18 @@ class _HomePageState extends State<HomePage>
         aspectRatio: 16.0 / 9.0,
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
-            return CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: swipeDataList[index].imagePath,
-              placeholder: (context, url) => Progress(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+            BannerResp bannerResp = swipeDataList[index];
+            return InkWell(
+              onTap: () {
+                NavigatorUtils.pushWebPage(context,
+                    title: bannerResp.title, url: bannerResp.url);
+              },
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: bannerResp.imagePath,
+                placeholder: (context, url) => ProgressView(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
             );
           },
           itemCount: swipeDataList.length,
@@ -114,7 +122,7 @@ class SwipeDiy extends StatelessWidget {
             return CachedNetworkImage(
               fit: BoxFit.cover,
               imageUrl: swipeDataList[index].imagePath,
-              placeholder: (context, url) => Progress(),
+              placeholder: (context, url) => ProgressView(),
               errorWidget: (context, url, error) => Icon(Icons.error),
             );
           },
