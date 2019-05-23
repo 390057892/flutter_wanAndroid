@@ -4,6 +4,7 @@ import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
 import 'package:flutter_wan_android/model/protocol/base_resp.dart';
 import 'package:flutter_wan_android/model/protocol/com_data.dart';
 import 'package:flutter_wan_android/model/protocol/project_resp.dart';
+import 'package:flutter_wan_android/model/protocol/search_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/dio_driver.dart';
 
@@ -41,11 +42,11 @@ class NetService {
             WanAndroidApi.getPath(path: WanAndroidApi.articleList, page: page));
     List<ArticleResp> articleList;
     if (baseResp.errorCode != HttpCode.http_success) {
-      return  Future.error(baseResp.errorMsg);
+      return Future.error(baseResp.errorMsg);
     }
     if (baseResp.data != null) {
       ComData comData = ComData.fromJson(baseResp.data);
-      articleList=comData.datas.map((value){
+      articleList = comData.datas.map((value) {
         return ArticleResp.fromJson(value);
       }).toList();
     }
@@ -55,18 +56,35 @@ class NetService {
   Future<List<ProjectResp>> getProjectList({int page, data}) async {
     BaseResp<Map<String, dynamic>> baseResp = await DioDriver()
         .getData<Map<String, dynamic>>(
-        WanAndroidApi.getPath(path: WanAndroidApi.projectList, page: page));
+            WanAndroidApi.getPath(path: WanAndroidApi.projectList, page: page));
     List<ProjectResp> projectList;
     if (baseResp.errorCode != HttpCode.http_success) {
-      return  Future.error(baseResp.errorMsg);
+      return Future.error(baseResp.errorMsg);
     }
     if (baseResp.data != null) {
       ComData comData = ComData.fromJson(baseResp.data);
-      projectList=comData.datas.map((value){
+      projectList = comData.datas.map((value) {
         return ProjectResp.fromJson(value);
       }).toList();
     }
     return projectList;
   }
 
+  Future<List<SearchResp>> searchList(String key) async {
+    Map<String, dynamic> map = new Map();
+    map.addAll({"k": key});
+    BaseResp<Map<String, dynamic>> baseResp = await DioDriver()
+        .postData<Map<String, dynamic>>(WanAndroidApi.search, data: map);
+    List<SearchResp> searchList;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {
+      ComData comData = ComData.fromJson(baseResp.data);
+      searchList = comData.datas.map((value) {
+        return SearchResp.fromJson(value);
+      }).toList();
+    }
+    return searchList;
+  }
 }

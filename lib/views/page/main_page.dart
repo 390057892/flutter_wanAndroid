@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                NavigatorUtils.pushAndroidPage(context, SearchPage());
+                showSearch(context:context,delegate: SearchBarDelegate());
               },
             )
           ],
