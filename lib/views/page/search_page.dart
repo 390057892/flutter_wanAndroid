@@ -1,25 +1,9 @@
 import 'package:flutter/material.dart';
-
-class SearchPage extends StatefulWidget {
-  @override
-  _SearchPageState createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('SearchBarDemo'), actions: <Widget>[
-        IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(context:context,delegate: SearchBarDelegate());
-            }),
-      ]),
-    );
-  }
-}
+import 'package:flutter_wan_android/blocs/app_bloc.dart';
+import 'package:flutter_wan_android/blocs/bloc_provider.dart';
+import 'package:flutter_wan_android/model/protocol/search_resp.dart';
+import 'package:flutter_wan_android/utlis/object_util.dart';
+import 'package:flutter_wan_android/views/widgets/search_item.dart';
 
 class SearchBarDelegate extends SearchDelegate<String> {
   @override
@@ -27,7 +11,8 @@ class SearchBarDelegate extends SearchDelegate<String> {
     return [
       IconButton(
         icon: Icon(Icons.clear),
-        onPressed: () => query = "",)
+        onPressed: () => query = "",
+      )
     ];
   }
 
@@ -41,23 +26,36 @@ class SearchBarDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container(
-      width: 100.0,
-      height: 100.0,
-      child: Card(
-        color: Colors.redAccent,
-        child: Center(
-          child: Text(query),
-        ),
-      ),
-    );
+    final AppBloc bloc = BlocProvider.of<AppBloc>(context);
+    bloc.searchList(query);
+    return StreamBuilder(
+        stream: bloc.searchSubject.stream,
+        builder: (context, snapshot) {
+          return SearchList(snapshot.data);
+        });
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container();
   }
+}
 
+class SearchList extends StatelessWidget {
+  final List<SearchResp> _list;
 
+  SearchList(this._list);
 
+  @override
+  Widget build(BuildContext context) {
+    if (ObjectUtil.isEmptyList(_list)) {
+      return Container(height: 0.0);
+    }
+    return ListView.builder(
+      itemCount: _list.length,
+      itemBuilder: (context, index) {
+        return SearchItem(_list[index]);
+      },
+    );
+  }
 }

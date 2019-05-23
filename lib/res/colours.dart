@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Colours {
   static const Color app_color = Colors.blue;
   static const Color gray_66 = Color(0xFF666666);
+  static const Color line_e5 = Color(0xffe5e5e5);
 }
 
 Map<String, Color> themeColorMap = {
