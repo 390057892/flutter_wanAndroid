@@ -3,6 +3,7 @@ import 'package:flutter_wan_android/model/protocol/article_resp.dart';
 import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
 import 'package:flutter_wan_android/model/protocol/base_resp.dart';
 import 'package:flutter_wan_android/model/protocol/com_data.dart';
+import 'package:flutter_wan_android/model/protocol/nav_resp.dart';
 import 'package:flutter_wan_android/model/protocol/project_resp.dart';
 import 'package:flutter_wan_android/model/protocol/search_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
@@ -86,5 +87,35 @@ class NetService {
       }).toList();
     }
     return searchList;
+  }
+
+  Future<List<NavResp>> getNavList() async {
+    BaseResp<List> baseResp =
+        await DioDriver().getData<List>(WanAndroidApi.navList);
+    List<NavResp> navList;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {
+      navList = baseResp.data.map((value) {
+        return NavResp.fromJson(value);
+      }).toList();
+    }
+    return navList;
+  }
+
+  Future<List<NavResp>> getWxList() async {
+    BaseResp<List> baseResp =
+        await DioDriver().getData<List>(WanAndroidApi.wxArticleList);
+    List<NavResp> navList;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {
+      navList = baseResp.data.map((value) {
+        return NavResp.fromJson(value);
+      }).toList();
+    }
+    return navList;
   }
 }

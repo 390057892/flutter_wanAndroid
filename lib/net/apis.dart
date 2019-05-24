@@ -29,6 +29,10 @@ class WanAndroidApi {
   ///https://www.wanandroid.com/article/query/0/json?k=书籍
   static const String search = "https://www.wanandroid.com/article/query/0/json";
 
+  ///导航数据
+  ///https://www.wanandroid.com/navi/json
+  static const String navList = "https://www.wanandroid.com/navi/json";
+
   static String getPath({String path: '', int page, String resType: 'json'}) {
     StringBuffer sb = new StringBuffer(path);
     if (page != null) {

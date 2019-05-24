@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wan_android/net/net_service.dart';
 
 abstract class BaseBloc {
+  NetService netService = NetService();
+
   Future getData({String labelId, int page});
 
   Future onRefresh({String labelId});

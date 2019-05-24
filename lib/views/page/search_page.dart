@@ -3,6 +3,7 @@ import 'package:flutter_wan_android/blocs/app_bloc.dart';
 import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/model/protocol/search_resp.dart';
 import 'package:flutter_wan_android/utlis/object_util.dart';
+import 'package:flutter_wan_android/views/widgets/progress.dart';
 import 'package:flutter_wan_android/views/widgets/search_item.dart';
 
 class SearchBarDelegate extends SearchDelegate<String> {
@@ -31,6 +32,11 @@ class SearchBarDelegate extends SearchDelegate<String> {
     return StreamBuilder(
         stream: bloc.searchSubject.stream,
         builder: (context, snapshot) {
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Center(
+              child: ProgressView(),
+            );
+          }
           return SearchList(snapshot.data);
         });
   }
@@ -49,9 +55,12 @@ class SearchList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (ObjectUtil.isEmptyList(_list)) {
-      return Container(height: 0.0);
+      return Center(
+        child: Text('暂无数据'),
+      );
     }
     return ListView.builder(
+      scrollDirection: Axis.vertical,
       itemCount: _list.length,
       itemBuilder: (context, index) {
         return SearchItem(_list[index]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan_android/utlis/navigator_utils.dart';
+import 'package:flutter_wan_android/utlis/object_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _WebPageState extends State<WebPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.title,
+          ObjectUtil.deleteHtml(widget.title),
           style: TextStyle(fontSize: 16.0),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
