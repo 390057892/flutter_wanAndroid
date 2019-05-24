@@ -27,7 +27,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     final AppBloc bloc = BlocProvider.of<AppBloc>(context);
-    bloc.searchList('书籍');
+    bloc.searchList(query);
     return StreamBuilder(
         stream: bloc.searchSubject.stream,
         builder: (context, snapshot) {
