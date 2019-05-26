@@ -6,6 +6,8 @@ import 'package:flutter_wan_android/model/protocol/com_data.dart';
 import 'package:flutter_wan_android/model/protocol/nav_resp.dart';
 import 'package:flutter_wan_android/model/protocol/project_resp.dart';
 import 'package:flutter_wan_android/model/protocol/search_resp.dart';
+import 'package:flutter_wan_android/model/protocol/wx_article_resp.dart';
+import 'package:flutter_wan_android/model/protocol/wx_resp.dart';
 import 'package:flutter_wan_android/net/apis.dart';
 import 'package:flutter_wan_android/net/dio_driver.dart';
 
@@ -24,7 +26,7 @@ class NetService {
 
   Future<List<BannerResp>> getBanner() async {
     BaseResp<List> baseResp =
-        await DioDriver().getData<List>(WanAndroidApi.BANNER);
+        await DioDriver().getData<List>(WanAndroidApi.banner);
     List<BannerResp> bannerList;
     if (baseResp.errorCode != HttpCode.http_success) {
       return new Future.error(baseResp.errorMsg);
@@ -104,18 +106,35 @@ class NetService {
     return navList;
   }
 
-  Future<List<NavResp>> getWxList() async {
+  Future<List<WxListResp>> getWxList() async {
     BaseResp<List> baseResp =
         await DioDriver().getData<List>(WanAndroidApi.wxArticleList);
-    List<NavResp> navList;
+    List<WxListResp> navList;
     if (baseResp.errorCode != HttpCode.http_success) {
       return Future.error(baseResp.errorMsg);
     }
     if (baseResp.data != null) {
       navList = baseResp.data.map((value) {
-        return NavResp.fromJson(value);
+        return WxListResp.fromJson(value);
       }).toList();
     }
     return navList;
+  }
+
+  Future<List<WxArticleResp>> getWxArticle(int wxId, int page) async {
+    BaseResp<Map<String, dynamic>> baseResp = await DioDriver()
+        .getData<Map<String, dynamic>>(WanAndroidApi.getPath(
+            path: WanAndroidApi.somebodyArticleList + "/$wxId",page: page));
+    List<WxArticleResp> wxArticle;
+    if (baseResp.errorCode != HttpCode.http_success) {
+      return Future.error(baseResp.errorMsg);
+    }
+    if (baseResp.data != null) {
+      ComData comData = ComData.fromJson(baseResp.data);
+      wxArticle = comData.datas.map((value) {
+        return WxArticleResp.fromJson(value);
+      }).toList();
+    }
+    return wxArticle;
   }
 }

@@ -1,7 +1,7 @@
 class WanAndroidApi {
   ///获取banner
   ///https://www.wanandroid.com/banner/json
-  static const String BANNER = "banner/json";
+  static const String banner = "banner/json";
 
   /// 首页文章列表 http://www.wanandroid.com/article/list/0/json
   static const String articleList = "article/list";

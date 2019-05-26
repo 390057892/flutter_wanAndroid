@@ -3,6 +3,7 @@ import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/blocs/nav_bloc.dart';
 import 'package:flutter_wan_android/blocs/project_bloc.dart';
+import 'package:flutter_wan_android/blocs/sys_bloc.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
 import 'package:flutter_wan_android/utlis/assets_utlis.dart';
 import 'package:flutter_wan_android/views/page/draw_left_page.dart';
@@ -89,8 +90,7 @@ class MainLayout extends StatelessWidget {
     String labelId = page.labelId;
     switch (labelId) {
       case Ids.home:
-        return BlocProvider(
-            child: HomePage(labelId: labelId), bloc: HomeBloc());
+        return BlocProvider(child: HomePage(), bloc: HomeBloc());
         break;
       case Ids.project:
         return BlocProvider(child: ProjectPage(), bloc: ProjectBloc());
@@ -99,7 +99,7 @@ class MainLayout extends StatelessWidget {
         return BlocProvider(bloc: NavBloc(), child: NavPage());
         break;
       case Ids.system:
-        return SystemPage();
+        return BlocProvider(bloc: SysBloc(), child: SystemPage());
         break;
       default:
         return Container();
