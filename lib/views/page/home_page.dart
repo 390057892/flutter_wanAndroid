@@ -42,6 +42,8 @@ class _HomePageState extends State<HomePage>
       stream: bloc.bannerSubject.stream,
       builder: (context, snapshot) {
         return EasyRefresh(
+
+          emptyWidget: ProgressView(),
           child: ListView(
             children: <Widget>[
               buildBanner(context, snapshot.data),

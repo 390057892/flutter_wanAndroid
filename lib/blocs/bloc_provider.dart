@@ -26,6 +26,7 @@ class BlocProvider<T extends BaseBloc> extends StatefulWidget {
   static T of<T extends BaseBloc>(BuildContext context) {
     final type = _typeOf<BlocProvider<T>>();
     print("====>type: $type");
+    //找出type的祖先  这里传入的type是bloc,例如某个部件被多个bloc,会查出最近的bloc对象
     BlocProvider<T> provider = context.ancestorWidgetOfExactType(type);
     return provider.bloc;
   }
