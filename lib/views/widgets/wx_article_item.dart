@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wan_android/model/protocol/search_resp.dart';
+import 'package:flutter_wan_android/model/protocol/wx_article_resp.dart';
 import 'package:flutter_wan_android/res/colours.dart';
 import 'package:flutter_wan_android/utlis/navigator_utils.dart';
 import 'package:flutter_wan_android/utlis/object_util.dart';
 import 'package:intl/intl.dart';
 
-class SearchItem extends StatelessWidget {
-  final SearchResp _searchResp;
+class WxArticleItem extends StatelessWidget {
+  final WxArticleResp _searchResp;
 
-  SearchItem(this._searchResp);
+  WxArticleItem(this._searchResp);
 
   @override
   Widget build(BuildContext context) {

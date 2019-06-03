@@ -6,10 +6,14 @@ import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/model/protocol/article_resp.dart';
 import 'package:flutter_wan_android/model/protocol/banner_resp.dart';
+import 'package:flutter_wan_android/model/protocol/wx_article_resp.dart';
+import 'package:flutter_wan_android/res/localizations.dart';
 import 'package:flutter_wan_android/utlis/navigator_utils.dart';
 import 'package:flutter_wan_android/utlis/object_util.dart';
 import 'package:flutter_wan_android/views/widgets/article_item.dart';
+import 'package:flutter_wan_android/views/widgets/header_item.dart';
 import 'package:flutter_wan_android/views/widgets/progress.dart';
+import 'package:flutter_wan_android/views/widgets/wx_article_item.dart';
 import 'package:rxdart/rxdart.dart';
 
 bool isFirstInit = true;
@@ -42,7 +46,6 @@ class _HomePageState extends State<HomePage>
       stream: bloc.bannerSubject.stream,
       builder: (context, snapshot) {
         return EasyRefresh(
-
           emptyWidget: ProgressView(),
           child: ListView(
             children: <Widget>[
@@ -51,6 +54,12 @@ class _HomePageState extends State<HomePage>
                 stream: bloc.articleSubject.stream,
                 builder: (context, snapshot) {
                   return HomeList(snapshot.data);
+                },
+              ),
+              StreamBuilder(
+                stream: bloc.wxArticleRepos.stream,
+                builder: (context, snapshot) {
+                  return WxList(snapshot.data);
                 },
               ),
             ],
@@ -105,38 +114,6 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-// 首页轮播组件编写
-class SwipeDiy extends StatelessWidget {
-  final List<BannerResp> swipeDataList;
-
-  SwipeDiy(this.swipeDataList);
-
-  @override
-  Widget build(BuildContext context) {
-    if (ObjectUtil.isEmptyList(swipeDataList)) {
-      return new Container(height: 0.0);
-    }
-    return Container(
-      child: AspectRatio(
-        aspectRatio: 16.0 / 9.0,
-        child: Swiper(
-          itemBuilder: (BuildContext context, int index) {
-            return CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: swipeDataList[index].imagePath,
-              placeholder: (context, url) => ProgressView(),
-              errorWidget: (context, url, error) => Icon(Icons.error),
-            );
-          },
-          itemCount: swipeDataList.length,
-          pagination: SwiperPagination(),
-          autoplay: true,
-        ),
-      ),
-    );
-  }
-}
-
 class HomeList extends StatelessWidget {
   final List<ArticleResp> articleList;
 
@@ -147,13 +124,65 @@ class HomeList extends StatelessWidget {
     if (ObjectUtil.isEmptyList(articleList)) {
       return Container(height: 0.0);
     }
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: articleList.length,
-      itemBuilder: (context, index) {
-        return ArticleItem(articleList[index]);
+
+    List<Widget> _children = articleList.map((model) {
+      return ArticleItem(model);
+    }).toList();
+    List<Widget> children = new List();
+    children.add(HeaderItem(
+      leftIcon: Icons.whatshot,
+      titleId: Ids.news,
+      onTap: () {
+//        NavigatorUtil.pushTabPage(context,
+//            labelId: Ids.titleReposTree, titleId: Ids.titleReposTree);
       },
+    ));
+    children.addAll(_children);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: children,
     );
+
+//    return ListView.builder(
+//      shrinkWrap: true,
+//      physics: NeverScrollableScrollPhysics(),
+//      itemCount: articleList.length,
+//      itemBuilder: (context, index) {
+//        return ArticleItem(articleList[index]);
+//      },
+//    );
+  }
+}
+
+class WxList extends StatelessWidget {
+  final List<WxArticleResp> wxList;
+
+  WxList(this.wxList);
+
+  @override
+  Widget build(BuildContext context) {
+    if (ObjectUtil.isEmptyList(wxList)) {
+      return Container(height: 0.0);
+    }
+
+    List<Widget> _children = wxList.map((model) {
+      return WxArticleItem(model);
+    }).toList();
+    List<Widget> children = List();
+    children.add(HeaderItem(
+      leftIcon: Icons.library_books,
+      titleId: Ids.wxArticle,
+      titleColor: Colors.green,
+      onTap: () {
+      },
+    ));
+    children.addAll(_children);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: children,
+    );
+
   }
 }

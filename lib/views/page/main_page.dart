@@ -22,8 +22,8 @@ class Page {
 final List<Page> _pages = [
   Page(Ids.home),
   Page(Ids.project),
-  Page(Ids.nav),
   Page(Ids.system),
+  Page(Ids.nav),
 ];
 
 class MainPage extends StatelessWidget {
@@ -95,11 +95,11 @@ class MainLayout extends StatelessWidget {
       case Ids.project:
         return BlocProvider(child: ProjectPage(), bloc: ProjectBloc());
         break;
-      case Ids.nav:
-        return BlocProvider(bloc: NavBloc(), child: NavPage());
-        break;
       case Ids.system:
         return BlocProvider(bloc: SysBloc(), child: SystemPage());
+        break;
+      case Ids.nav:
+        return BlocProvider(bloc: NavBloc(), child: NavPage());
         break;
       default:
         return Container();
