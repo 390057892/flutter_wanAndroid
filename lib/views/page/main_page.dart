@@ -3,7 +3,7 @@ import 'package:flutter_wan_android/blocs/bloc_provider.dart';
 import 'package:flutter_wan_android/blocs/home_bloc.dart';
 import 'package:flutter_wan_android/blocs/nav_bloc.dart';
 import 'package:flutter_wan_android/blocs/project_bloc.dart';
-import 'package:flutter_wan_android/blocs/sys_bloc.dart';
+import 'package:flutter_wan_android/blocs/article_bloc.dart';
 import 'package:flutter_wan_android/res/localizations.dart';
 import 'package:flutter_wan_android/utlis/assets_utlis.dart';
 import 'package:flutter_wan_android/views/page/draw_left_page.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_wan_android/views/page/home_page.dart';
 import 'package:flutter_wan_android/views/page/nav_page.dart';
 import 'package:flutter_wan_android/views/page/project_page.dart';
 import 'package:flutter_wan_android/views/page/search_page.dart';
-import 'package:flutter_wan_android/views/page/system_page.dart';
+import 'package:flutter_wan_android/views/page/article_page.dart';
 
 class Page {
   final String labelId;
@@ -22,7 +22,7 @@ class Page {
 final List<Page> _pages = [
   Page(Ids.home),
   Page(Ids.project),
-  Page(Ids.system),
+  Page(Ids.article),
   Page(Ids.nav),
 ];
 
@@ -95,8 +95,8 @@ class MainLayout extends StatelessWidget {
       case Ids.project:
         return BlocProvider(child: ProjectPage(), bloc: ProjectBloc());
         break;
-      case Ids.system:
-        return BlocProvider(bloc: SysBloc(), child: SystemPage());
+      case Ids.article:
+        return BlocProvider(bloc: ArticleBloc(), child: ArticlePage());
         break;
       case Ids.nav:
         return BlocProvider(bloc: NavBloc(), child: NavPage());

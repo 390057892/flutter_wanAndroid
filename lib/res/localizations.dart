@@ -16,8 +16,8 @@ class Ids {
 
   static const String home = 'home';
   static const String project = 'project';
+  static const String article = 'article';
   static const String nav = 'nav';
-  static const String system = 'system';
 
   static const String news = 'news';
   static const String more = 'more';
@@ -51,7 +51,7 @@ class LocalizationsControl {
         Ids.home: 'Home',
         Ids.project: 'Project',
         Ids.nav: 'Navigation',
-        Ids.system: 'System',
+        Ids.article: 'Article',
         Ids.news: 'Newest',
         Ids.more: 'More',
         Ids.wxArticle: 'WxArticle',
@@ -72,7 +72,7 @@ class LocalizationsControl {
         Ids.home: '首页',
         Ids.project: '项目',
         Ids.nav: '导航',
-        Ids.system: '体系',
+        Ids.article: '文章',
         Ids.news: '最新',
         Ids.more: '更多',
         Ids.wxArticle: '公众号',
@@ -91,7 +91,7 @@ class LocalizationsControl {
         Ids.home: '首頁',
         Ids.project: '項目',
         Ids.nav: '導航',
-        Ids.system: '體系',
+        Ids.article: '文章',
         Ids.news: '項目',
         Ids.more: '更多',
         Ids.wxArticle: '公众号',
@@ -110,7 +110,7 @@ class LocalizationsControl {
         Ids.home: '首頁',
         Ids.project: '項目',
         Ids.nav: '導航',
-        Ids.system: '體系',
+        Ids.article: '文章',
         Ids.news: '項目',
         Ids.more: '更多',
         Ids.wxArticle: '公众号',

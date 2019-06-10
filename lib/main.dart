@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
         //主题
         accentColor: _themeColor,
         primaryColor: _themeColor,
+        primaryColorDark: _themeColor,
         indicatorColor: Colors.white,
       ),
 
